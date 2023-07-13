@@ -10,6 +10,7 @@ Utils::addRoute('adminlist',       'AdminCtrl', ['admin']);
 Utils::addRoute('adminree',       'AdminCtrl', ['admin']);
 Utils::addRoute('adminadd',       'AdminCtrl', ['admin']);
 Utils::addRoute('admindel',       'AdminCtrl', ['admin']);
+Utils::addRoute('adminedit',       'AdminCtrl', ['admin']);
 Utils::addRoute('rejestrshow',       'RejestrCtrl');
 Utils::addRoute('rejestr',       'RejestrCtrl');
 Utils::addRoute('login',  'LoginCtrl');

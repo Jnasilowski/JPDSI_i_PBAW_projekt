@@ -25,23 +25,35 @@ public function getParams(){
     $this->form->Do_kiedy = ParamUtils::getFromRequest('Do_kiedy');
    
 }
+public function getParams2(){
+    $this->form->Nr_samochodu2 = ParamUtils::getFromRequest('Nr_samochodu2');
+    $this->form->Od_kiedy2 = ParamUtils::getFromRequest('Od_kiedy2');
+    $this->form->Do_kiedy2 = ParamUtils::getFromRequest('Do_kiedy2');
+   
+}
 
 public function validate(){
 
 
-    if  ($this->form->Nr_samochodu=="" || $this->form->Od_kiedy=="" || $this->form->Do_kiedy=="") {
-	
+    if  ($this->form->Nr_samochodu2=="" || $this->form->Od_kiedy2=="" || $this->form->Do_kiedy2=="") {
+        App::getMessages()->addMessage  ("brak danych :c");
+        App::getMessages()->addMessage  ($this->form->Nr_samochodu2.$this->form->Od_kiedy2.$this->form->Do_kiedy2);
         return false;
     }
 	
 
-    return ! App::getMessages()->addMessage  ("błąd ");
+    return ! App::getMessages()->addMessage  ("Przetworzyliśmy twoje zamówienie");
 
 }
 public function action_usercarlist(){
-
-    $tekst = '<img src="img';
-	$tekst2 = '" width = "300" height="300">';
+    $this->getparams();
+    $licznik = 1;
+    $licznik2 = 1;
+    $licznik3 = 1;
+    
+    $sprawdz = 0;
+    $tekst = '<img src="';
+	$tekst2 = '" width = "400" height="300">';
     $tekst3;
 	
 	try{
@@ -54,13 +66,45 @@ public function action_usercarlist(){
 			"Marka",
 			"photo_name"
 		]);
+        $data2 = App::getDB()->select("zamowienia", [
+            "id_samochodu",
+			"od_kiedy",
+			"do_kiedy",
+			
+		]);
         
         //$this->form->$id_uzytkownika=1;
 		foreach($data as $item){
-            $tekst3 ="Nr samochodu: ".$item["id_samochodu"].' |Marka: '.$item["Marka"].' |Model: '.$item['Model'].' |Rocznik: '.$item['Rocznik'].'<br>'.$tekst.'/'.$item["photo_name"].$tekst2;
-			App::getMessages()->addMessage($tekst3);
+            $licznik2 = 1;
+            $licznik3 = 1;
+            
+            foreach($data2 as $item2){
+                if(($item2['od_kiedy']>$this->form->Od_kiedy && $item2['od_kiedy']>$this->form->Do_kiedy && $item['id_samochodu']==$item2['id_samochodu'])||($item2['do_kiedy']<$this->form->Od_kiedy && $item2['do_kiedy']<$this->form->Do_kiedy && $item['id_samochodu']==$item2['id_samochodu'])){
+                    $licznik2++;
+                   // App::getMessages()->addMessage($this->form->Od_kiedy.'  '.$this->form->Do_kiedy);
+                   // App::getMessages()->addMessage($item2['od_kiedy'].'  '.$item2['do_kiedy']);
+                 }
+                 if($item['id_samochodu']==$item2['id_samochodu']){
+                    $licznik3++;
+                 }
+                 
+             }
+             if($licznik2 == $licznik3){
+                $tekst3 ="Nr samochodu: ".$licznik.' |Marka: '.$item["Marka"].' |Model: '.$item['Model'].' |Rocznik: '.$item['Rocznik'].'<br>'.$tekst.$item["photo_name"].$tekst2;
+			    App::getMessages()->addMessage($tekst3);
+               // App::getMessages()->addMessage($this->form->Od_kiedy.'  '.$this->form->Do_kiedy);
+                $sprawdz = 1;
+                //<input id="Nr_samochodu" type="text"  name="Nr_samochodu" value="">
+                $licznik++;
+             }
+             
+                
             
 		}
+        if($sprawdz<1){
+            App::getMessages()->addMessage("Brak dostępnych samochodów w tym termini: ".$this->form->Od_kiedy."    ".$this->form->Do_kiedy);
+            App::getMessages()->addMessage($licznik2.$licznik3);
+        }
 		
 
 	}catch (\PDOException $ex){
@@ -76,15 +120,99 @@ public function action_usercarlist(){
 }
 
 public function action_userrent(){
-
-
-    $this-> __construct();
-    $this->getparams();
+    $this->getparams2();
+    $licznik = 1;
+    $licznik2 = 1;
+    $licznik3 = 1;
+    $sprawdz = 0;
+    $sprawdz2 = 0;
+    $wyznacznik = 1;
+    $tekst = '<img src="';
+	$tekst2 = '" width = "400" height="300">';
+    $tekst3;
+    
+  
     if ($this->validate()) {
 
         try{
+
+            
+		
+		$data = App::getDB()->select("cars", [
+            "id_samochodu",
+			"Model",
+			"Rocznik",
+			"Color",
+			"Marka",
+			"photo_name"
+		]);
+        $data2 = App::getDB()->select("zamowienia", [
+            "id_samochodu",
+			"od_kiedy",
+			"do_kiedy",
+			
+		]);
         
-        App::getDB()->insert("zamowienia", [
+        //$this->form->$id_uzytkownika=1;
+		foreach($data as $item){
+            $licznik2 = 1;
+            $licznik3 = 1;
+            
+            foreach($data2 as $item2){
+                if(($item2['od_kiedy']>$this->form->Od_kiedy2 && $item2['od_kiedy']>$this->form->Do_kiedy2 && $item['id_samochodu']==$item2['id_samochodu'])||($item2['do_kiedy']<$this->form->Od_kiedy2 && $item2['do_kiedy']<$this->form->Do_kiedy2 && $item['id_samochodu']==$item2['id_samochodu'])){
+                    $licznik2++;
+                   // App::getMessages()->addMessage($this->form->Od_kiedy.'  '.$this->form->Do_kiedy);
+                   // App::getMessages()->addMessage($item2['od_kiedy'].'  '.$item2['do_kiedy']);
+                 }
+                 if($item['id_samochodu']==$item2['id_samochodu']){
+                    $licznik3++;
+                 }
+                 
+             }
+             if($licznik2 == $licznik3){
+               // $tekst3 ="Nr samochodu: ".$licznik.' |Marka: '.$item["Marka"].' |Model: '.$item['Model'].' |Rocznik: '.$item['Rocznik'].'<br>'.$tekst.$item["photo_name"].$tekst2;
+			   // App::getMessages()->addMessage($tekst3);
+               // App::getMessages()->addMessage($this->form->Od_kiedy.'  '.$this->form->Do_kiedy);
+                $sprawdz = 1;
+                
+                if($wyznacznik == $this->form->Nr_samochodu2){
+                    $sprawdz2 =1;
+                   // App::getMessages()->addMessage($_SESSION ['id']);
+                    App::getDB()->insert("zamowienia", [
+                        //"id_samochodu" =>1,
+                        "Id_samochodu" => $item['id_samochodu'],
+                        "Id_uzytkownika" =>$_SESSION ['id'],
+                        "od_kiedy" => $this->form->Od_kiedy2,
+                        "do_kiedy" => $this->form->Do_kiedy2                         
+                        
+                        
+                    ]);
+                    App::getMessages()->addMessage("Udało się zamówić samochód!");
+
+                }
+                $wyznacznik++;
+                //<input id="Nr_samochodu" type="text"  name="Nr_samochodu" value="">
+             }
+             
+                
+            $licznik++;
+		}
+        if($sprawdz<1){
+            App::getMessages()->addMessage("Brak dostępnych samochodów w tym terminie");
+        }
+        if($sprawdz2<1){
+            App::getMessages()->addMessage("Ten samochód nie jest dostępny w tym terminie");
+        }
+		
+        }catch (\PDOException $ex){
+        App::getMessages()->addMessage  ("DB Error1: ");
+    }
+
+
+
+
+        
+      /*  App::getDB()->insert("zamowienia", [
             //"id_samochodu" =>1,
             "Id_samochodu" => $this->form->Nr_samochodu ,
             "Id_uzytkownika" =>$_SESSION ['id'],
@@ -101,16 +229,11 @@ public function action_userrent(){
             "Marka",
         ]);
         
-        
+       */ 
+    
+}
 
-    }catch (\PDOException $ex){
-        App::getMessages()->addMessage  ("DB Error1: ");
-    }
 
-    }
-    else{
-        App::getMessages()->addMessage  ("Brak danych ");
-    }
 
         $this->generateView();
 

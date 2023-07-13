@@ -34,11 +34,47 @@ class RejestrCtrl{
 	}
 	public function validate(){
 		if ( ! (isset($this->form->log) && isset($this->form->passw ) && isset($this->form->imie) && isset($this->form->nazwisko) && isset($this->form->wiek) && isset($this->form->nr_tel) )) {
-	
+			
 			return false;
 		}
-		if (  $this->form->log=="" ||  $this->form->passw=="" ||  $this->form->imie==""  ||  $this->form->nazwisko=="" ||  $this->form->wiek=="" ||  $this->form->nr_tel=="" ) {
 	
+
+		if ($this->form->log=="" || $this->form->passw=="" ||  $this->form->imie=="" ||  $this->form->nazwisko=="" ||  $this->form->wiek=="" ||  $this->form->nr_tel=="") {
+			if($this->form->log == ""){
+				App::getMessages()->addMessage('Nie podano loginu');
+				
+
+			}
+			if($this->form->passw == ""){
+				App::getMessages()->addMessage('Nie podano hasła');
+				
+
+			}
+			if($this->form->imie == ""){
+				App::getMessages()->addMessage('Nie podano imienia');
+				
+
+			}
+			if($this->form->imie == ""){
+				App::getMessages()->addMessage('Nie podano nazwiska');
+				
+
+			}
+			if($this->form->imie == ""){
+				App::getMessages()->addMessage('Nie podano wieku');
+				
+
+			}
+			if($this->form->imie == ""){
+				App::getMessages()->addMessage('Nie podano numeru telefonu');
+				
+
+			}
+
+			return false;
+		}
+		if($this->form->wiek<18){
+			App::getMessages()->addMessage('Masz mniej niż 18 lat!');
 			return false;
 		}
 
@@ -70,9 +106,7 @@ class RejestrCtrl{
 		}
 
 		}
-		else{
-			App::getMessages()->addMessage  ("błąd ");
-		}
+		
 
 			$this->generateView();
 

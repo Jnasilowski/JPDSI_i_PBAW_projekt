@@ -7,10 +7,11 @@
 
 <div class="pure-g">
 
-<div class="l-box-lrg pure-u-1 pure-u-med-2-5">
-	<form class="pure-form pure-form-stacked" action="{$conf->action_root}adminadd" method="post">
+<div class="l-box-lrg pure-u-1 pure-u-med-2-5" border="5">
+	<form class="pure-form pure-form-stacked" action="{$conf->action_url}adminadd" method="post">
 		<fieldset>
-
+		<label for="Nr_sam">Dodawanie samochodu:</label>
+		
 			<label for="Marka">Marka</label>
 			<input id="Marka" type="text" name="Marka" value="">
 
@@ -24,10 +25,10 @@
 			<label for="Color">Kolor</label>
 			<input id="Color" type="text" name="Color" value="">
 
-            <label for="photo_name">Nazwa zdjęcia</label>
+            <label for="photo_name">Link do zdjęcia</label>
 			<input id="photo_name" type="text" name="photo_name" value="">
 			
-			<button type="submit" class="pure-button">Stwórz</button>
+			<button type="submit" class="pure-button">Dodaj</button>
 		</fieldset>
 	</form>
 	<form class="pure-form pure-form-stacked" action="{$conf->action_url}adminlist" method="post">
@@ -53,6 +54,32 @@
 			<input id="Nr_sam" type="text" name="Nr_sam" value="">
 			<button type="submit" class="pure-button">Usuń</button>
 	</fieldset>
+	</form>
+	<form class="pure-form pure-form-stacked" action="{$conf->action_url}adminedit" method="post">
+		<fieldset>
+		<label for="Nr_sam">Edycja samochodu:</label>
+
+			<label for="Nr_sam">Nr samochodu</label>
+			<input id="Nr_sam" type="text" name="Nr_sam" value="">
+		
+			<label for="Marka">Marka</label>
+			<input id="Marka" type="text" name="Marka" value="">
+
+			
+			<label for="Model">Model</label>
+			<input id="Model" type="text" name="Model" value="">
+
+			<label for="Rocznik">Rocznik</label>
+			<input id="Rocznik" type="text" name="Rocznik" value="">
+
+			<label for="Color">Kolor</label>
+			<input id="Color" type="text" name="Color" value="">
+
+            <label for="photo_name">Link do zdjęcia</label>
+			<input id="photo_name" type="text" name="photo_name" value="">
+			
+			<button type="submit" class="pure-button">edytuj</button>
+		</fieldset>
 	</form>
 </div>
 

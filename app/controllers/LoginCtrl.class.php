@@ -41,10 +41,21 @@ class LoginCtrl{
 		
 			
 			// sprawdzenie, czy potrzebne wartości zostały przekazane
-			if ($this->form->login == "" || $this->form->pass == "" ) {
-				App::getMessages()->addMessage('Nie podano login lub hasła');
+			if ($this->form->login == "" || $this->form->pass == "") {
+				if($this->form->login == ""){
+					App::getMessages()->addMessage('Nie podano loginu');
+					
+	
+				}
+				if($this->form->pass == ""){
+					App::getMessages()->addMessage('Nie podano hasła');
+					
+	
+				}
+
 				return false;
 			}
+			
 			
 		
 

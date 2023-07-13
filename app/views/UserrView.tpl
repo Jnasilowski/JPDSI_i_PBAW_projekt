@@ -8,29 +8,48 @@
 
 <div class="pure-g">
 <div class="l-box-lrg pure-u-1 pure-u-med-2-5">
-	<form class="pure-form pure-form-stacked" action="{$conf->action_root}userrent" method="post">
+	<form class="pure-form pure-form-stacked" action="{$conf->action_root}usercarlist" method="post">
 		<fieldset>
 
-			<label for="Nr_samochodu">Nr samochodu</label>
-			<input id="Nr_samochodu" type="text"  name="Nr_samochodu" value="">
+			<label for="Nr_samochodu">Sprawdź dostępne samochody</label>
+			
 
             <label for="Od_kiedy">Od kiedy</label>
-			<input id="Od_kiedy" type="text" name="Od_kiedy" value="">
+			<input id="Od_kiedy" type="date"  name="Od_kiedy" value="">
 
 
             <label for="Do_kiedy">Do kiedy</label>
-			<input id="Do_kiedy" type="text" name="Do_kiedy" value="">
+			<input id="Do_kiedy" type="date"  name="Do_kiedy" value="">
+
+			
+
+			<button type="submit" class="pure-button">Sprawdź</button>
+		</fieldset>
+	</form>
+	<form class="pure-form pure-form-stacked" action="{$conf->action_root}userrent" method="post">
+		<fieldset>
+
+			<label for="LOL">Zamów samochód</label>
+
+
+			<label for="Nr_samochodu2">Numer samochodu: </label>
+			<input id="Nr_samochodu2" type="text"  name="Nr_samochodu2" value="">
+
+            <label for="Od_kiedy2">Od kiedy</label>
+			<input id="Od_kiedy2" type="date"  name="Od_kiedy2" value="">
+
+
+            <label for="Do_kiedy2">Do kiedy</label>
+			<input id="Do_kiedy2" type="date"  name="Do_kiedy2" value="">
 
 			
 
 			<button type="submit" class="pure-button">Zamów</button>
 		</fieldset>
 	</form>
-    <form class="pure-form pure-form-stacked" action="{$conf->action_root}usercarlist" method="post">
-		<button type="submit" class="pure-button">Lista samochodów</button>
-		
-	</form>
 </div>
+
+
 
 <div class="l-box-lrg pure-u-1 pure-u-med-3-5">
 
