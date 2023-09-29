@@ -83,7 +83,14 @@
 	</form>
 </div>
 
-
+<div class="l-box-lrg pure-u-1 pure-u-med-3-5">
+{if not empty($list)}
+	<ol>
+	{foreach $list as $item}
+		<li> login: {$item['Login']} <br> Imie:{$item['Imie']} <br> Nazwisko: {$item['Nazwisko']} <br> Numer_telefonu:{$item['Numer_telefonu']} <br> Wiek: {$item['Wiek']}</li>
+	{/foreach}
+	</ol>
+{/if}
 
 {* wyświeltenie listy błędów, jeśli istnieją 
 

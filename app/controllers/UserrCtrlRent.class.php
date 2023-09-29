@@ -9,7 +9,7 @@ use core\Message;
 use core\Utils;
 use core\ParamUtils;
 
-class UserrCtrl {
+class UserrCtrlRent {
 
 private $form; 
 
@@ -45,18 +45,24 @@ public function validate(){
     return ! App::getMessages()->addMessage  ("Przetworzyliśmy twoje zamówienie");
 
 }
-public function action_usercarlist(){
-    $this->getparams();
+public function action_userrent(){
+    $this->getparams2();
     $licznik = 1;
     $licznik2 = 1;
     $licznik3 = 1;
-    
     $sprawdz = 0;
+    $sprawdz2 = 0;
+    $wyznacznik = 1;
     $tekst = '<img src="';
 	$tekst2 = '" width = "400" height="300">';
     $tekst3;
-	
-	try{
+    
+  
+    if ($this->validate()) {
+
+        try{
+
+            
 		
 		$data = App::getDB()->select("cars", [
             "id_samochodu",
@@ -72,26 +78,49 @@ public function action_usercarlist(){
 			"do_kiedy",
 			
 		]);
+        
+        //$this->form->$id_uzytkownika=1;
+		foreach($data as $item){
+          
+                
+                if($wyznacznik == $this->form->Nr_samochodu2){
+                    $sprawdz2 =1;
+                   // App::getMessages()->addMessage($_SESSION ['id']);
+                    App::getDB()->insert("zamowienia", [
+                        //"id_samochodu" =>1,
+                        "Id_samochodu" => $item['id_samochodu'],
+                        "Id_uzytkownika" =>$_SESSION ['id'],
+                        "od_kiedy" => $this->form->Od_kiedy2,
+                        "do_kiedy" => $this->form->Do_kiedy2                         
+                        
+                        
+                    ]);
+                    App::getMessages()->addMessage("Udało się zamówić samochód!");
 
-	}catch (\PDOException $ex){
-		App::getMessages()->addMessage  ("DB Error1: ");
-	}
-    App::getSmarty()->assign('sprawdz',$sprawdz);
-    $Od_kiedy = $this->form->Od_kiedy;
-    $Do_kiedy = $this->form->Do_kiedy;
-    App::getSmarty()->assign('Od_kiedy',$Od_kiedy);
-    App::getSmarty()->assign('Do_kiedy',$Do_kiedy);
-	App::getSmarty()->assign('licz1',$licznik);
-    App::getSmarty()->assign('licz2',$licznik2);
-    App::getSmarty()->assign('licz3',$licznik3 );
-        App::getSmarty()->assign('list',$data);
-        App::getSmarty()->assign('list2',$data2);
-		$this->generateView();
+                }
+                $wyznacznik++;
+                //<input id="Nr_samochodu" type="text"  name="Nr_samochodu" value="">
+             }
+             
+                
+           
+		
+        
+		
+        }catch (\PDOException $ex){
+        App::getMessages()->addMessage  ("DB Error1: ");
+    }
 
 
+
+    
 }
 
 
+
+        $this->generateView();
+
+}
 
 
 public function generateView(){

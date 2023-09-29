@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-21 17:59:55
-  from 'C:\xampp\htdocs\carent\app\views\AdminView.tpl' */
+/* Smarty version 4.3.0, created on 2023-09-21 22:41:30
+  from 'C:\xampp\htdocs\carent\app\views\AdminViewRee.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_650c687b0f9ad9_36878983',
+  'unifunc' => 'content_650caa7a9614f0_28541300',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '403f9541bb4cf58e64d90819df17297cda5fe597' => 
+    '3fda9724b9ccc44f026c5ad8d90b038ec4a247e7' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\carent\\app\\views\\AdminView.tpl',
-      1 => 1695311753,
+      0 => 'C:\\xampp\\htdocs\\carent\\app\\views\\AdminViewRee.tpl',
+      1 => 1695328886,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_650c687b0f9ad9_36878983 (Smarty_Internal_Template $_smarty_tpl) {
+function content_650caa7a9614f0_28541300 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
@@ -28,16 +28,16 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_31493682650c687b0e84e1_34142894', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_958871394650caa7a94fd26_04682621', 'content');
 $_smarty_tpl->inheritance->endChild($_smarty_tpl, "main.tpl");
 }
 /* {block 'content'} */
-class Block_31493682650c687b0e84e1_34142894 extends Smarty_Internal_Block
+class Block_958871394650caa7a94fd26_04682621 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_31493682650c687b0e84e1_34142894',
+    0 => 'Block_958871394650caa7a94fd26_04682621',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -130,7 +130,25 @@ adminedit" method="post">
 	</form>
 </div>
 
+<div class="l-box-lrg pure-u-1 pure-u-med-3-5">
 
+<?php if (!empty($_smarty_tpl->tpl_vars['list']->value)) {?>
+	<ol>
+
+    
+	<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['tablica']->value, 'item');
+$_smarty_tpl->tpl_vars['item']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->do_else = false;
+?>
+		<li> <?php echo $_smarty_tpl->tpl_vars['item']->value;?>
+ </li>
+	<?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+	</ol>
+<?php }?>
 
 <?php if ($_smarty_tpl->tpl_vars['msgs']->value->isInfo()) {?>
 	<h4>Informacje: </h4>

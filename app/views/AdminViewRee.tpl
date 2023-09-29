@@ -83,7 +83,17 @@
 	</form>
 </div>
 
+<div class="l-box-lrg pure-u-1 pure-u-med-3-5">
 
+{if not empty($list)}
+	<ol>
+
+    
+	{foreach $tablica as $item}
+		<li> {$item} </li>
+	{/foreach}
+	</ol>
+{/if}
 
 {* wyświeltenie listy błędów, jeśli istnieją 
 

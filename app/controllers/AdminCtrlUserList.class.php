@@ -10,7 +10,7 @@ use core\ParamUtils;
 use core\RoleUtils;
 use app\transfer\User;
 
-class AdminCtrl {
+class AdminCtrlUserList {
 
 private $form; 
 public $tekst3='';
@@ -72,77 +72,35 @@ public function validate(){
     
 	
 }
+public function action_adminuserlist(){
 
-
-public function action_adminedit(){
-
-	$this->getparams();
-
-	$licznik = 1;
 	try{
-		
-
-		$data = App::getDB()->select("cars", [
-			"id_samochodu",
-			"Model",
-			"Rocznik",
-			"Color",
-			"Marka",
-			"photo_name"
-			
+		$data = App::getDB()->select("users", [
+			"ID_user",
+			"Login",
+			"Imie",
+			"Nazwisko",
+			"Numer_telefonu",
+			"Wiek"
 		]);
-
-
-		foreach($data as $item){
-			if($licznik == $this->form->Nr_sam){
-							if($this->form->Marka!="" ){
-								App::getDB()->update("cars",[
-									"Model"=>$this->form->Marka],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->Rocznik!="" ){
-								App::getDB()->update("cars",[
-									"Rocznik"=>$this->form->Rocznik],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->Color!="" ){
-								App::getDB()->update("cars",[
-									"Color"=>$this->form->Colork],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->Model!="" ){
-								App::getDB()->update("cars",[
-									"Model"=>$this->form->Model],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->photo_name!="" ){
-								App::getDB()->update("cars",[
-									"photo_name"=>$this->form->photo_name],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-						
-			$licznik++;
-			
-		}
-	
-		$licznik++;
-	}
-		//App::getSmarty()->assign('a',$msgs->getMessages());
+		/*foreach($data as $item){
+			$tekst3 = ' login: '.$item['Login'].'<br> Imie: '.$item['Imie'].'<br> Nazwisko: '.$item['Nazwisko'].'<br> Numer_telefonu: '.$item['Numer_telefonu'].'<br> Wiek: '.$item['Wiek'];
+			//App::getMessages()->addMessage (new Message('zamowienie: '.$item["ID_zamowienia"].'<br> samochud nr: '.$item['Id_samochodu'].'<br> Użytkownika: '.$item['Id_uzytkownika'].'<br> od kiedy: '.$item['od_kiedy'].$item['Id_uzytkownika'].'<br> do kiedy: '.$item['do_kiedy'], Message::	));
+			App::getMessages()->addMessage  ($tekst3);
+		}*/
+		
 
 	}catch (\PDOException $ex){
 		App::getMessages()->addMessage  (new Message("DB Error1: ", Message::ERROR));
 	}
 
-	$this->generateView();
+	
+		App::getSmarty()->assign('list',$data);
+
+		$this->generateView();
 
 
 }
-
 
 public function generateView(){
 	
@@ -150,8 +108,6 @@ public function generateView(){
 	App:: getSmarty()->assign('form',$this->form);
 	//App:: getSmarty()->assign('a',$this->getMessages());
 	//App:: getSmarty()->assign('c',App::getMessage(0));
-	App:: getSmarty()->display('AdminView.tpl');	
+	App:: getSmarty()->display('AdminViewUserList.tpl');	
 }	
-	
 }
-

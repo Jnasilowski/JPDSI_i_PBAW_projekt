@@ -10,7 +10,7 @@ use core\ParamUtils;
 use core\RoleUtils;
 use app\transfer\User;
 
-class AdminCtrl {
+class AdminCtrlList {
 
 private $form; 
 public $tekst3='';
@@ -72,86 +72,46 @@ public function validate(){
     
 	
 }
-
-
-public function action_adminedit(){
-
-	$this->getparams();
-
-	$licznik = 1;
+public function action_adminlist(){
+	$tekst = '<img src="';
+	$tekst2 = '" width = "400" height="300">';
+	
 	try{
 		
 
 		$data = App::getDB()->select("cars", [
-			"id_samochodu",
 			"Model",
 			"Rocznik",
 			"Color",
 			"Marka",
 			"photo_name"
-			
 		]);
-
-
-		foreach($data as $item){
-			if($licznik == $this->form->Nr_sam){
-							if($this->form->Marka!="" ){
-								App::getDB()->update("cars",[
-									"Model"=>$this->form->Marka],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->Rocznik!="" ){
-								App::getDB()->update("cars",[
-									"Rocznik"=>$this->form->Rocznik],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->Color!="" ){
-								App::getDB()->update("cars",[
-									"Color"=>$this->form->Colork],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->Model!="" ){
-								App::getDB()->update("cars",[
-									"Model"=>$this->form->Model],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-							if($this->form->photo_name!="" ){
-								App::getDB()->update("cars",[
-									"photo_name"=>$this->form->photo_name],[
-										"id_samochodu" =>$item["id_samochodu"]
-						]);
-					}
-						
-			$licznik++;
+		/*foreach($data as $item){
+			//getMessages()->addInfo('Marka: '.$item["Marka"].' Model: '.$item['Model'].' Rocznik: '.$item['Rocznik'].'<br>'.$tekst.'/'.$item["photo_name"].$tekst2);
+			App::getMessages()->addMessage  ('Marka: '.$item["Marka"].' <br>Model: '.$item['Model'].'<br> Rocznik: '.$item['Rocznik'].'<br>'.$tekst.$item["photo_name"].$tekst2);
 			
 		}
-	
-		$licznik++;
-	}
 		//App::getSmarty()->assign('a',$msgs->getMessages());
-
+        */
 	}catch (\PDOException $ex){
 		App::getMessages()->addMessage  (new Message("DB Error1: ", Message::ERROR));
 	}
 
-	$this->generateView();
+	
+    App::getSmarty()->assign('list',$data);
+
+    $this->generateView();
+
+		
 
 
 }
-
-
 public function generateView(){
 	
     App::getSmarty()->assign('page_title','CARENT');
 	App:: getSmarty()->assign('form',$this->form);
 	//App:: getSmarty()->assign('a',$this->getMessages());
 	//App:: getSmarty()->assign('c',App::getMessage(0));
-	App:: getSmarty()->display('AdminView.tpl');	
+	App:: getSmarty()->display('AdminViewList.tpl');	
 }	
-	
 }
-

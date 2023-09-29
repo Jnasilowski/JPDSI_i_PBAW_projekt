@@ -122,7 +122,8 @@ class LoginCtrl{
 			
 			if($pas == 0) {
 				
-				App::getMessages()->addMessage  ("żle");
+				App::getMessages()->addMessage  ("Nie ma takiego konta");
+				return false;
 			}
 		}
 		
@@ -136,12 +137,15 @@ class LoginCtrl{
 		$this->getParams();
 		
 		if ($this->validate()){
-			 if($this ->form->ad == 1){
+			 if($this ->form->ad == 1 && $pas = 1){
 				$this->generateView3(); 
+			}
+			else if($this ->form->ad == 0 && $pas = 1){
+				$this->generateView4();
 			}
 			else{
 				App::getSmarty()->assign('us',$this->us);
-				$this->generateView4(); 
+				$this->generateView(); 
 				//App::getSmarty()->assign('id_uzytkownika',$id_uzytkownika);
 				//zalogowany => przekieruj na stronę główną, gdzie uruchomiona zostanie domyślna akcja
 			//header("Location: ".getConf()->app_url."/");

@@ -83,6 +83,7 @@
 	</form>
 </div>
 
+<div class="l-box-lrg pure-u-1 pure-u-med-3-5">
 
 
 {* wyświeltenie listy błędów, jeśli istnieją 

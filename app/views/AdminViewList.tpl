@@ -83,7 +83,14 @@
 	</form>
 </div>
 
-
+<div class="l-box-lrg pure-u-1 pure-u-med-3-5">
+{if not empty($list)}
+	<ol>
+	{foreach $list as $item}
+		<li> Marka: {$item['Marka']} <br> Model:{$item['Model']} <br> Rocznik: {$item['Rocznik']} <br><img src={$item['photo_name']} width = "400" height="300"> </li>
+	{/foreach}
+	</ol>
+{/if}
 
 {* wyświeltenie listy błędów, jeśli istnieją 
 
